@@ -1,19 +1,28 @@
-package src
+package main
 
 import (
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/widget"
+	"adbHelper/src/activity"
+	"fmt"
+	"os"
 )
 
-func main() {
-	application := app.New()
+const signedFileName string = "signed.cfg"
+const projectFileName string = "project.cfg"
 
-	w := application.NewWindow("Android Box ADB 工具")
-	w.SetContent(widget.NewVBox(
-		widget.NewLabel("Hello Fyne!"),
-		widget.NewButton("Quit", func() {
-			application.Quit()
-		}),
-	))
-	w.ShowAndRun()
+func main() {
+	//讀取 singed 檔案資料
+	signedStr, err := os.Open(signedFileName)
+	if err != nil {
+		fmt.Println("signed file err ", err)
+	}
+	fmt.Println(signedStr)
+
+	//讀取 project 檔案資料
+	projectStr, err := os.Open(projectFileName)
+	if err != nil {
+		fmt.Println("project file err ", err)
+	}
+	fmt.Println(projectStr)
+
+	activity.CreateApp()
 }
